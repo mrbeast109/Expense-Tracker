@@ -95,14 +95,14 @@ const Budgets = () => {
   const overallStatus = getStatus(totalSpent, budgets.monthlyTotal);
 
   if (loading) {
-    return <div className="flex items-center justify-center h-full text-sm text-gray-500">Loading...</div>;
+    return <div className="flex items-center justify-center min-h-[60vh] py-12 text-sm text-gray-500">Loading...</div>;
   }
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs animate-fade-in">
-          <div className="bg-white/90 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 w-full max-w-md p-6 max-h-[90vh] overflow-y-auto animate-scale-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs animate-fade-in p-4">
+          <div className="bg-white/90 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 w-full max-w-md p-5 sm:p-6 max-h-[90vh] overflow-y-auto animate-scale-in">
             <div className="flex items-center justify-between mb-5">
               <h2 className="font-semibold text-gray-900 text-lg">Set Monthly Budgets</h2>
               <button onClick={() => setModalOpen(false)} className="text-gray-400 hover:text-gray-700">
@@ -138,7 +138,7 @@ const Budgets = () => {
                             [cat]: Number(e.target.value),
                           })
                         }
-                        className="w-32 border border-gray-200 rounded-xl px-3 py-1.5 text-sm text-gray-900 outline-none focus:border-gray-400 text-right"
+                        className="w-28 sm:w-32 border border-gray-200 rounded-xl px-3 py-1.5 text-sm text-gray-900 outline-none focus:border-gray-400 text-right"
                       />
                     </div>
                   ))}
@@ -156,12 +156,12 @@ const Budgets = () => {
         </div>
       )}
 
-      <div className="flex items-start justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Budgets</h1>
-          <p className="text-gray-500 text-sm mt-1">Set spending limits and monitor your progress</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-sm">Budgets</h1>
+          <p className="text-white/80 text-sm mt-1">Set spending limits and monitor your progress</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
           <MonthPicker selectedDate={selectedDate} onChange={setSelectedDate} />
           <button
             onClick={() => {
@@ -169,7 +169,7 @@ const Budgets = () => {
               setEditingCategories(budgets.categories);
               setModalOpen(true);
             }}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-colors"
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-colors flex-1 sm:flex-initial"
           >
             <Pencil size={15} />
             Edit Budget
@@ -177,7 +177,7 @@ const Budgets = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
           <p className="text-sm text-gray-500 mb-1">Monthly Budget</p>
           <p className="text-2xl font-bold text-gray-900">₹{formatINR(budgets.monthlyTotal)}</p>
@@ -192,7 +192,7 @@ const Budgets = () => {
             <TrendingUp size={18} className="text-red-500" />
           </div>
         </div>
-        <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+        <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)] sm:col-span-2 lg:col-span-1">
           <p className="text-sm text-gray-500 mb-1">Remaining Budget</p>
           <p className={`text-2xl font-bold ${remaining < 0 ? 'text-red-500' : 'text-emerald-600'}`}>
             {remaining < 0 ? '−' : ''}₹{formatINR(Math.abs(remaining))}
@@ -203,7 +203,7 @@ const Budgets = () => {
         </div>
       </div>
 
-      <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-6 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)] mb-6">
+      <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 sm:p-6 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)] mb-6">
         <div className="flex items-center justify-between mb-3">
           <div>
             <h2 className="font-semibold text-gray-900">Overall Budget Status</h2>
@@ -223,25 +223,25 @@ const Budgets = () => {
         </div>
         {overallPercent >= 100 ? (
           <div className="flex items-center gap-2 mt-3 text-red-600 text-xs">
-            <AlertTriangle size={14} />
+            <AlertTriangle size={14} className="shrink-0" />
             <span>You have exceeded your monthly spending limit by ₹{formatINR(Math.abs(remaining))}.</span>
           </div>
         ) : overallPercent >= 80 ? (
           <div className="flex items-center gap-2 mt-3 text-amber-600 text-xs">
-            <AlertTriangle size={14} />
+            <AlertTriangle size={14} className="shrink-0" />
             <span>Caution: You have used {overallPercent}% of your monthly budget.</span>
           </div>
         ) : (
           <div className="flex items-center gap-2 mt-3 text-emerald-600 text-xs">
-            <CheckCircle size={14} />
+            <CheckCircle size={14} className="shrink-0" />
             <span>Great job! Your spending is well within your monthly limit.</span>
           </div>
         )}
       </div>
 
-      <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-6 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+      <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 sm:p-6 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
         <h2 className="font-semibold text-gray-900 mb-5">Category Budgets</h2>
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
           {Object.entries(budgets.categories).map(([category, limit]) => {
             const spent = categorySpending[category] || 0;
             const pct = limit > 0 ? Math.round((spent / limit) * 100) : 0;

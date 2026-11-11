@@ -34,8 +34,8 @@ function Modal({ open, onClose, onSubmit, initial, loading, error }) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs animate-fade-in">
-      <div className="bg-white/90 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 w-full max-w-md p-6 animate-scale-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs animate-fade-in p-4">
+      <div className="bg-white/90 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 w-full max-w-md p-5 sm:p-6 max-h-[90vh] overflow-y-auto animate-scale-in">
         <div className="flex items-center justify-between mb-5">
           <h2 className="font-semibold text-gray-900 text-lg">{initial?._id ? 'Edit Transaction' : 'Add Transaction'}</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-700"><X size={20} /></button>
@@ -165,7 +165,7 @@ const Transactions = () => {
   const totalExpense = transactions.filter((t) => t.type === 'expense').reduce((a, t) => a + Number(t.amount), 0);
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
       <Modal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
@@ -175,20 +175,20 @@ const Transactions = () => {
         error={modalError}
       />
 
-      <div className="flex items-start justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Transactions</h1>
-          <p className="text-gray-500 text-sm mt-1">View and manage all your transactions</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-sm">Transactions</h1>
+          <p className="text-white/80 text-sm mt-1">View and manage all your transactions</p>
         </div>
         <button
           onClick={handleAdd}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-colors"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-colors w-full sm:w-auto"
         >
           <Plus size={16} />Add Transaction
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
           <p className="text-sm text-gray-500 mb-1">Total Transactions</p>
           <p className="text-2xl font-bold text-gray-900">{transactions.length}</p>
@@ -197,37 +197,37 @@ const Transactions = () => {
           <p className="text-sm text-gray-500 mb-1">Total Income</p>
           <p className="text-2xl font-bold text-green-600">+₹{formatINR(totalIncome)}</p>
         </div>
-        <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+        <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)] sm:col-span-2 lg:col-span-1">
           <p className="text-sm text-gray-500 mb-1">Total Expenses</p>
           <p className="text-2xl font-bold text-red-500">−₹{formatINR(totalExpense)}</p>
         </div>
       </div>
 
-      <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
-        <div className="flex items-center justify-between mb-5">
+      <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-4 sm:p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
           <h2 className="font-semibold text-gray-900">All Transactions</h2>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2">
-              <Search size={14} className="text-gray-400" />
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+            <div className="flex flex-1 sm:flex-initial items-center gap-2 border border-gray-200 rounded-xl px-3 py-2 min-w-[130px]">
+              <Search size={14} className="text-gray-400 shrink-0" />
               <input
                 type="text"
                 placeholder="Search..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="text-sm text-gray-700 outline-none placeholder-gray-400 w-32"
+                className="text-sm text-gray-700 outline-none placeholder-gray-400 w-full sm:w-32 bg-transparent"
               />
             </div>
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              className="border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 outline-none"
+              className="flex-1 sm:flex-initial border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 outline-none bg-transparent"
             >
               {['All', 'Income', 'Expense'].map((t) => <option key={t}>{t}</option>)}
             </select>
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 outline-none"
+              className="flex-1 sm:flex-initial border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 outline-none bg-transparent"
             >
               {categories.map((c) => <option key={c}>{c}</option>)}
             </select>
@@ -237,57 +237,59 @@ const Transactions = () => {
         {loading ? (
           <p className="text-center text-sm text-gray-400 py-10">Loading...</p>
         ) : (
-          <table className="w-full">
-            <thead>
-              <tr className="text-xs text-gray-400 border-b border-gray-100">
-                <th className="text-left pb-3 font-medium">Date</th>
-                <th className="text-left pb-3 font-medium">Description</th>
-                <th className="text-left pb-3 font-medium">Type</th>
-                <th className="text-left pb-3 font-medium">Category</th>
-                <th className="text-right pb-3 font-medium">Amount</th>
-                <th className="pb-3" />
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.length === 0 ? (
-                <tr><td colSpan={6} className="text-center text-sm text-gray-400 py-10">No transactions found</td></tr>
-              ) : (
-                filtered.map((tx) => {
-                  const Icon = CATEGORY_ICONS[tx.category] || MoreHorizontal;
-                  const isIncome = tx.type === 'income';
-                  return (
-                    <tr key={tx._id + tx.type} className="border-b border-gray-50 last:border-0 group">
-                      <td className="py-3 text-sm text-gray-500 whitespace-nowrap">{getRelativeDate(tx.date)}</td>
-                      <td className="py-3 text-sm text-gray-900 font-medium">{tx.description}</td>
-                      <td className="py-3">
-                        <span className={`text-xs px-2.5 py-1 rounded-lg font-medium ${isIncome ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'}`}>
-                          {isIncome ? 'Income' : 'Expense'}
-                        </span>
-                      </td>
-                      <td className="py-3">
-                        <span className="inline-flex items-center gap-1.5 text-xs bg-gray-100 text-gray-700 px-2.5 py-1 rounded-lg">
-                          <Icon size={12} />{tx.category}
-                        </span>
-                      </td>
-                      <td className={`py-3 text-sm font-medium text-right ${isIncome ? 'text-green-600' : 'text-red-500'}`}>
-                        {isIncome ? '+' : '−'}₹{formatINR(tx.amount)}
-                      </td>
-                      <td className="py-3 text-right">
-                        <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button onClick={() => handleEdit(tx)} className="text-gray-400 hover:text-gray-700">
-                            <Pencil size={15} />
-                          </button>
-                          <button onClick={() => handleDelete(tx)} className="text-gray-400 hover:text-red-500">
-                            <Trash2 size={15} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto w-full">
+            <table className="w-full min-w-[600px]">
+              <thead>
+                <tr className="text-xs text-gray-400 border-b border-gray-100">
+                  <th className="text-left pb-3 font-medium">Date</th>
+                  <th className="text-left pb-3 font-medium">Description</th>
+                  <th className="text-left pb-3 font-medium">Type</th>
+                  <th className="text-left pb-3 font-medium">Category</th>
+                  <th className="text-right pb-3 font-medium">Amount</th>
+                  <th className="pb-3" />
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.length === 0 ? (
+                  <tr><td colSpan={6} className="text-center text-sm text-gray-400 py-10">No transactions found</td></tr>
+                ) : (
+                  filtered.map((tx) => {
+                    const Icon = CATEGORY_ICONS[tx.category] || MoreHorizontal;
+                    const isIncome = tx.type === 'income';
+                    return (
+                      <tr key={tx._id + tx.type} className="border-b border-gray-50 last:border-0 group">
+                        <td className="py-3 text-sm text-gray-500 whitespace-nowrap">{getRelativeDate(tx.date)}</td>
+                        <td className="py-3 text-sm text-gray-900 font-medium">{tx.description}</td>
+                        <td className="py-3">
+                          <span className={`text-xs px-2.5 py-1 rounded-lg font-medium ${isIncome ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'}`}>
+                            {isIncome ? 'Income' : 'Expense'}
+                          </span>
+                        </td>
+                        <td className="py-3">
+                          <span className="inline-flex items-center gap-1.5 text-xs bg-gray-100 text-gray-700 px-2.5 py-1 rounded-lg">
+                            <Icon size={12} />{tx.category}
+                          </span>
+                        </td>
+                        <td className={`py-3 text-sm font-medium text-right ${isIncome ? 'text-green-600' : 'text-red-500'}`}>
+                          {isIncome ? '+' : '−'}₹{formatINR(tx.amount)}
+                        </td>
+                        <td className="py-3 text-right">
+                          <div className="flex items-center justify-end gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                            <button onClick={() => handleEdit(tx)} className="text-gray-400 hover:text-gray-700">
+                              <Pencil size={15} />
+                            </button>
+                            <button onClick={() => handleDelete(tx)} className="text-gray-400 hover:text-red-500">
+                              <Trash2 size={15} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

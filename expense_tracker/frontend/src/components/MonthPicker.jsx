@@ -55,7 +55,7 @@ const MonthPicker = ({ selectedDate, onChange }) => {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-64 bg-white/90 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 p-4 z-50 animate-slide-down">
+        <div className="absolute right-0 top-full mt-2 w-64 max-w-[calc(100vw-2rem)] bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 p-4 z-50 animate-slide-down">
           <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-100">
             <button
               type="button"

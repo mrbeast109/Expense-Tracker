@@ -123,10 +123,10 @@ const Categories = () => {
   });
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs animate-fade-in">
-          <div className="bg-white/90 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 w-full max-w-md p-6 animate-scale-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs animate-fade-in p-4">
+          <div className="bg-white/90 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 w-full max-w-md p-5 sm:p-6 max-h-[90vh] overflow-y-auto animate-scale-in">
             <div className="flex items-center justify-between mb-5">
               <h2 className="font-semibold text-gray-900 text-lg">
                 {editingCategory ? 'Edit Category' : 'Add Category'}
@@ -201,21 +201,21 @@ const Categories = () => {
         </div>
       )}
 
-      <div className="flex items-start justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Categories</h1>
-          <p className="text-gray-500 text-sm mt-1">Manage income and expense categories</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-sm">Categories</h1>
+          <p className="text-white/80 text-sm mt-1">Manage income and expense categories</p>
         </div>
         <button
           onClick={handleOpenAdd}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-colors"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-colors w-full sm:w-auto"
         >
           <Plus size={16} />
           Add Category
         </button>
       </div>
 
-      <div className="flex items-center gap-2 mb-6">
+      <div className="flex flex-wrap items-center gap-2 mb-6">
         {[
           { key: 'all', label: 'All Categories' },
           { key: 'expense', label: 'Expenses' },
@@ -235,7 +235,7 @@ const Categories = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {displayedCategories.map((cat) => {
           const IconComp = ICON_MAP[cat.icon] || Tag;
           const stats = getCategoryStats(cat.name, cat.type);
@@ -262,7 +262,7 @@ const Categories = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => handleOpenEdit(cat)}
                     className="p-1.5 text-gray-400 hover:text-gray-700 rounded-lg hover:bg-gray-50"

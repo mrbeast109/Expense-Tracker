@@ -8,21 +8,23 @@ const Layout = ({ onLogout, user }) => {
 
   return (
     <div
-      className="flex h-screen w-screen overflow-hidden relative bg-cover bg-center bg-no-repeat"
+      className="flex flex-col lg:flex-row h-screen w-full overflow-hidden relative bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <img
-        src={bgImage}
-        alt=""
-        className="fixed inset-0 w-full h-full object-cover pointer-events-none select-none z-0"
-      />
-      <div className="fixed inset-0 bg-black/10 pointer-events-none z-0" />
+      <div className="fixed inset-0 pointer-events-none select-none z-0 overflow-hidden">
+        <img
+          src={bgImage}
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/10" />
+      </div>
       <Navbar onLogout={onLogout} user={user} />
-      <div className="flex-1 overflow-y-auto relative z-10">
-        <div key={location.pathname} className="animate-fade-in">
+      <main className="flex-1 overflow-y-auto relative z-10 w-full min-w-0 flex flex-col pb-10 sm:pb-6">
+        <div key={location.pathname} className="animate-fade-in w-full flex-1">
           <Outlet />
         </div>
-      </div>
+      </main>
     </div>
   );
 };

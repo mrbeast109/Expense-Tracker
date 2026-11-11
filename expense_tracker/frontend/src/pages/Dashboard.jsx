@@ -111,19 +111,19 @@ function BarChart({ monthlyData }) {
   const max = Math.max(...monthlyData.map((m) => m.amount), 1);
 
   return (
-    <div className="flex items-end gap-2 h-36 mt-2">
+    <div className="flex items-end gap-1.5 sm:gap-2 h-36 mt-2 w-full min-w-0">
       {monthlyData.map((m, i) => {
         const isLast = i === monthlyData.length - 1;
         const heightPct = (m.amount / max) * 100;
         return (
-          <div key={m.month} className="flex flex-col items-center gap-1 flex-1">
+          <div key={m.month} className="flex flex-col items-center gap-1 flex-1 min-w-0">
             <div className="w-full flex items-end justify-center" style={{ height: 110 }}>
               <div
                 className={`w-full rounded-t-md transition-all duration-500 ${isLast ? 'bg-gray-900' : 'bg-gray-200'}`}
                 style={{ height: `${Math.max(heightPct, 4)}%` }}
               />
             </div>
-            <span className="text-xs text-gray-500">{m.month}</span>
+            <span className="text-xs text-gray-500 truncate w-full text-center">{m.month}</span>
           </div>
         );
       })}
@@ -179,7 +179,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center min-h-[60vh] py-12">
         <div className="text-gray-500 text-sm">Loading...</div>
       </div>
     );
@@ -187,7 +187,7 @@ const Dashboard = () => {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center min-h-[60vh] py-12">
         <div className="text-red-500 text-sm">{error}</div>
       </div>
     );
@@ -245,17 +245,17 @@ const Dashboard = () => {
   });
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
-      <div className="flex items-start justify-between mb-8">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-500 text-sm mt-1">Track your income and expenses</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-sm">Dashboard</h1>
+          <p className="text-white/80 text-sm mt-1">Track your income and expenses</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
           <MonthPicker selectedDate={selectedDate} onChange={setSelectedDate} />
           <button
             onClick={() => navigate('/transactions')}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-colors"
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-colors flex-1 sm:flex-initial"
           >
             <Plus size={16} />
             Add Expense
@@ -263,7 +263,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
           <p className="text-sm text-gray-500 mb-1">Total Spent</p>
           <p className="text-2xl font-bold text-gray-900">₹{formatINR(monthlyExpense)}</p>
@@ -278,7 +278,7 @@ const Dashboard = () => {
             <TrendingDown size={18} className="text-green-500" />
           </div>
         </div>
-        <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+        <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)] sm:col-span-2 lg:col-span-1">
           <p className="text-sm text-gray-500 mb-1">Balance</p>
           <p className="text-2xl font-bold text-gray-900">₹{formatINR(savings)}</p>
           <div className="mt-3 w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center">
@@ -287,12 +287,12 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-5 gap-4 mb-6">
-        <div className="col-span-3 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-6">
+        <div className="col-span-1 lg:col-span-3 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
           <h2 className="font-semibold text-gray-900 mb-4">Spending by Category</h2>
-          <div className="flex items-center gap-8">
+          <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
             <DonutChart data={expenseDistribution} total={monthlyExpense} />
-            <div className="flex flex-col gap-3 flex-1">
+            <div className="flex flex-col gap-3 w-full sm:flex-1">
               {expenseDistribution.length === 0 ? (
                 <p className="text-sm text-gray-400">No expense data</p>
               ) : (
@@ -316,14 +316,14 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="col-span-2 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+        <div className="col-span-1 lg:col-span-2 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
           <h2 className="font-semibold text-gray-900 mb-1">Monthly Trend</h2>
           <BarChart monthlyData={trendBars} />
         </div>
       </div>
 
-      <div className="grid grid-cols-5 gap-4">
-        <div className="col-span-3 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+        <div className="col-span-1 lg:col-span-3 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold text-gray-900">Recent Transactions</h2>
             <button
@@ -341,19 +341,19 @@ const Dashboard = () => {
                 const Icon = CATEGORY_ICONS[tx.category] || MoreHorizontal;
                 const isExpense = tx.type === 'expense';
                 return (
-                  <div key={tx._id} className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center">
+                  <div key={tx._id} className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
                         <Icon size={16} className="text-gray-600" />
                       </div>
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">{tx.description}</p>
-                        <p className="text-xs text-gray-400">
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-gray-900 truncate">{tx.description}</p>
+                        <p className="text-xs text-gray-400 truncate">
                           {tx.category} • {getRelativeDate(tx.date || tx.createdAt)}
                         </p>
                       </div>
                     </div>
-                    <span className={`text-sm font-medium ${isExpense ? 'text-gray-900' : 'text-green-600'}`}>
+                    <span className={`text-sm font-medium shrink-0 ${isExpense ? 'text-gray-900' : 'text-green-600'}`}>
                       {isExpense ? '-' : '+'}₹{formatINR(tx.amount)}
                     </span>
                   </div>
@@ -363,7 +363,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="col-span-2 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+        <div className="col-span-1 lg:col-span-2 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold text-gray-900">Budget</h2>
             <button

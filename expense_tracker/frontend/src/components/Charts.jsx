@@ -58,25 +58,25 @@ export function BarChart({ monthlyData = [] }) {
   }
 
   return (
-    <div className="flex gap-4 mt-2">
-      <div className="flex flex-col-reverse justify-between text-xs text-gray-400 pr-1 pb-5" style={{ height: 140 }}>
+    <div className="flex gap-2 sm:gap-4 mt-2 w-full min-w-0">
+      <div className="flex flex-col-reverse justify-between text-xs text-gray-400 pr-1 pb-5 shrink-0" style={{ height: 140 }}>
         {ticks.map((t, idx) => (
           <span key={`${t}-${idx}`}>{fmtTick(t)}</span>
         ))}
       </div>
-      <div className="flex items-end gap-2 flex-1" style={{ height: 140 }}>
+      <div className="flex items-end gap-1.5 sm:gap-2 flex-1 min-w-0" style={{ height: 140 }}>
         {monthlyData.map((m, i) => {
           const isLast = i === monthlyData.length - 1;
           const heightPct = rawMax > 0 ? (Number(m.amount || 0) / max) * 100 : 0;
           return (
-            <div key={`${m.month}-${m.year || i}`} className="flex flex-col items-center gap-1 flex-1">
+            <div key={`${m.month}-${m.year || i}`} className="flex flex-col items-center gap-1 flex-1 min-w-0">
               <div className="w-full flex items-end justify-center" style={{ height: 115 }}>
                 <div
                   className={`w-full rounded-t-md transition-all duration-300 ${isLast ? 'bg-gray-900' : 'bg-gray-200'}`}
                   style={{ height: `${Math.max(heightPct, 3)}%` }}
                 />
               </div>
-              <span className="text-xs text-gray-500">{m.month}</span>
+              <span className="text-xs text-gray-500 truncate w-full text-center">{m.month}</span>
             </div>
           );
         })}

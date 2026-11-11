@@ -68,28 +68,28 @@ const Expenses = () => {
   });
 
   if (loading) {
-    return <div className="flex items-center justify-center h-full text-sm text-gray-500">Loading...</div>;
+    return <div className="flex items-center justify-center min-h-[60vh] py-12 text-sm text-gray-500">Loading...</div>;
   }
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
-      <div className="flex items-start justify-between mb-8">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Expenses</h1>
-          <p className="text-gray-500 text-sm mt-1">Track and analyze your spending</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-sm">Expenses</h1>
+          <p className="text-white/80 text-sm mt-1">Track and analyze your spending</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
           <MonthPicker selectedDate={selectedDate} onChange={setSelectedDate} />
           <button
             onClick={() => navigate('/transactions')}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-colors"
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-colors flex-1 sm:flex-initial"
           >
             <Plus size={16} />Add Expense
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
           <p className="text-sm text-gray-500 mb-1">Total Expenses</p>
           <p className="text-2xl font-bold text-gray-900">₹{formatINR(totalExpense)}</p>
@@ -102,22 +102,22 @@ const Expenses = () => {
           <p className="text-2xl font-bold text-gray-900">₹{formatINR(thisMonthTotal)}</p>
           <span className="text-xs text-gray-500 font-medium mt-1 inline-block">{monthExpenses.length} entries</span>
         </div>
-        <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+        <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)] sm:col-span-2 lg:col-span-1">
           <p className="text-sm text-gray-500 mb-1">No. of Expenses</p>
           <p className="text-2xl font-bold text-gray-900">{expenses.length}</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-5 gap-4 mb-6">
-        <div className="col-span-3 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-6">
+        <div className="col-span-1 lg:col-span-3 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
           <h2 className="font-semibold text-gray-900 mb-1">Expenses Over Time</h2>
           <BarChart monthlyData={monthlyBars} />
         </div>
-        <div className="col-span-2 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+        <div className="col-span-1 lg:col-span-2 bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
           <h2 className="font-semibold text-gray-900 mb-4">Spending by Category</h2>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
             <DonutChart data={distribution} total={thisMonthTotal} centerLabel="Total Spent" />
-            <div className="flex flex-col gap-2.5 flex-1">
+            <div className="flex flex-col gap-2.5 w-full sm:flex-1">
               {distribution.slice(0, 5).map((item, i) => (
                 <div key={item.category} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -136,30 +136,31 @@ const Expenses = () => {
       </div>
 
       <div className="bg-white/75 backdrop-blur-xl rounded-2xl p-5 border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <h2 className="font-semibold text-gray-900">Expense Entries</h2>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2">
-              <Search size={14} className="text-gray-400" />
+          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+            <div className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2 flex-1 sm:flex-initial">
+              <Search size={14} className="text-gray-400 shrink-0" />
               <input
                 type="text"
                 placeholder="Search expenses..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="text-sm text-gray-700 outline-none placeholder-gray-400 w-36"
+                className="text-sm text-gray-700 outline-none placeholder-gray-400 w-full sm:w-36 bg-transparent"
               />
             </div>
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 outline-none"
+              className="border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 outline-none bg-white/70"
             >
               {categories.map((c) => <option key={c}>{c}</option>)}
             </select>
           </div>
         </div>
 
-        <table className="w-full">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full min-w-[550px]">
           <thead>
             <tr className="text-xs text-gray-400 border-b border-gray-100">
               <th className="text-left pb-3 font-medium">Date</th>
@@ -194,6 +195,7 @@ const Expenses = () => {
             )}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );
