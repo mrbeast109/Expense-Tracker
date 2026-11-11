@@ -5,6 +5,7 @@ import { connectDB } from './config/db.js';
 import userRouter from './routes/userRoute.js';
 import incomeRouter from './routes/incomeRoute.js';
 import expenseRouter from './routes/expenseRoute.js';
+import dashboardRouter from './routes/dashboardRoute.js';
     
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -21,6 +22,7 @@ connectDB();
 app.use("/api/user",userRouter);
 app.use("/api/income",incomeRouter);
 app.use("/api/expense",expenseRouter);
+app.use("/api/dashboard",dashboardRouter);
 
 app.get('/',(req,res) => {
     res.send("backend is running");

@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+body {
+  margin: 0;
+  background-color: #0f172a;
+  background-image: url('/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+select {
+  cursor: pointer;
+}
