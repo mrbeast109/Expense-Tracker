@@ -9,7 +9,7 @@ import Profile from "./pages/Profile";
 import Transactions from "./pages/Transactions";
 import Budgets from "./pages/Budgets";
 import Categories from "./pages/Categories";
-import Layout from "./components/Layout";
+import Layout from "./components/Layout.jsx";
 
 function App() {
   const [user, setUser] = useState(() => {
