@@ -125,8 +125,8 @@ const Categories = () => {
   return (
     <div className="p-8 max-w-6xl mx-auto">
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white/90 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 w-full max-w-md p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs animate-fade-in">
+          <div className="bg-white/90 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 w-full max-w-md p-6 animate-scale-in">
             <div className="flex items-center justify-between mb-5">
               <h2 className="font-semibold text-gray-900 text-lg">
                 {editingCategory ? 'Edit Category' : 'Add Category'}

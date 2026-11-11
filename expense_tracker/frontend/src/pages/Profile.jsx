@@ -205,7 +205,7 @@ const Profile = ({ user, onLogout }) => {
                     </button>
 
                     {isOpen && (
-                      <div className="absolute right-0 top-full mt-2 w-44 bg-white/95 backdrop-blur-2xl rounded-xl shadow-2xl border border-white/80 py-1.5 z-30 flex flex-col">
+                      <div className="absolute right-0 top-full mt-2 w-44 bg-white/95 backdrop-blur-2xl rounded-xl shadow-2xl border border-white/80 py-1.5 z-30 flex flex-col animate-slide-down">
                         {config.options.map((opt) => {
                           const isSelected = preferences[key] === opt;
                           return (
@@ -240,8 +240,8 @@ const Profile = ({ user, onLogout }) => {
       </button>
 
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
-          <div className="bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 w-full max-w-md p-6 relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4 animate-fade-in">
+          <div className="bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/70 w-full max-w-md p-6 relative animate-scale-in">
             <div className="flex items-center justify-between mb-5">
               <h2 className="font-semibold text-gray-900 text-lg">Edit Profile</h2>
               <button

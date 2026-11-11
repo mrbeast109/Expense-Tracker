@@ -46,7 +46,7 @@ const Signup = ({ onLogin }) => {
       <div className="absolute inset-0 bg-black/25 backdrop-blur-xs pointer-events-none" />
       
 
-      <div className="bg-white/85 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 w-full max-w-sm p-8 relative z-10">
+      <div className="bg-white/85 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 w-full max-w-sm p-8 relative z-10 animate-scale-in">
         <h1 className="text-2xl font-bold text-gray-900 text-center mb-6">Create your account</h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
