@@ -27,7 +27,11 @@ const INCOME_CATEGORIES = ['Salary', 'Freelance', 'Business', 'Investment', 'Oth
 function Modal({ open, onClose, onSubmit, initial, loading, error }) {
   const [form, setForm] = useState(initial || { description: '', amount: '', type: 'expense', category: '', date: '' });
 
-  useEffect(() => { setForm(initial || { description: '', amount: '', type: 'expense', category: '', date: '' }); }, [initial]);
+  useEffect(() => {
+    if (open) {
+      setForm(initial ? { ...initial, amount: initial.amount ?? '' } : { description: '', amount: '', type: 'expense', category: '', date: '' });
+    }
+  }, [open, initial]);
 
   const categories = form.type === 'income' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
 
@@ -148,8 +152,13 @@ const Transactions = () => {
       else res = await addExpense(payload);
     }
     setSaving(false);
-    if (res.success) { setModalOpen(false); await load(); }
-    else setModalError(res.message || 'Something went wrong');
+    if (res.success) {
+      setEditing(null);
+      setModalOpen(false);
+      await load();
+    } else {
+      setModalError(res.message || 'Something went wrong');
+    }
   };
 
   const categories = ['All Categories', ...Array.from(new Set(transactions.map((t) => t.category).filter(Boolean)))];
@@ -168,7 +177,10 @@ const Transactions = () => {
     <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
       <Modal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => {
+          setEditing(null);
+          setModalOpen(false);
+        }}
         onSubmit={handleSubmit}
         initial={editing}
         loading={saving}
